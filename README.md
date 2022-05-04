@@ -1,10 +1,10 @@
 # Histopathologic Cancer Detection
 
-This project is the course project of PRML 2022. The contributors are:
+This is the course project of PRML 2022. The contributors are:
 
 i) Debdut Saini (B20CS011)
-ii) Vedant A. Sontake (B20EE094)
-iii) Suborno Biswas (B20EE067)
+ii) Vedant A. Sontake (B20EE095)
+iii) Suborno Biswas (B20EE069)
 
 <h3>WorkFlow:</h3>
 
