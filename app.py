@@ -45,6 +45,6 @@ if uploaded_file != None:
     proba = flatten(F.softmax(outputs.data),1).view(2,1)
     _, predicted = torch.max(outputs.data, 1)
     if proba[0] >= 0.5:
-        st.markdown('<h4 style = "text-align:center">The tissue image seems to be cancerous with probability %.3f.<h4>'%(proba[0].item()),unsafe_allow_html = True)
+        st.markdown('<h4 style = "text-align:center">The tissue image seems to be not cancerous with probability %.3f.<h4>'%(proba[0].item()),unsafe_allow_html = True)
     else:
-        st.markdown(f'<h4 style = "text-align:center">The tissue image is not cancerous with probability %.3f.<h4>'%(proba[0].item()),unsafe_allow_html = True)
+        st.markdown(f'<h4 style = "text-align:center">The tissue image is cancerous with probability %.3f.<h4>'%(proba[0].item()),unsafe_allow_html = True)
