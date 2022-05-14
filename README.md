@@ -33,5 +33,12 @@ v. Random forest and different ensemble learning methods can be tried.
 
 vi. Decision Tree can be tried, but it is expected to give poor result when compared to Random Forest.
 
-## Note: We can not disclose the code as of now.
+<h2>How to run the App?</h2>
+
+1. To run the app, you need to download the weights from the given link https://drive.google.com/file/d/1YpfoeXjKVwuurWWN2aoelA5hrB_1N3-z/view?usp=sharing.
+
+2. Run the command `streamlit run app.py` in the terminal.
+
+
+
 
