@@ -1,13 +1,16 @@
 # Histopathologic Cancer Detection
 ## Introduction
-Cancer is a disease in which cells multiply uncontrollably and crowd out the normal cells. A biopsy is an invasive
-diagnosis which uses imaging tests to show if there is any change in the tissue that may be cancerous. In biopsies, pathologists
+Cancer is a disease in which cells multiply uncontrollably and crowd out the normal cells. In biopsies, pathologists
 provide the histopathologic assessment of the microscopic structure of the tissue and make final diagnosis by applying visual
 inspection of histopathological samples under the microscope and aim to differentiate between normal, and malignant cells.
 Manual detection is a tedious, tiring task and most likely to comprise human error, as most parts of the cell are frequently part of
-irregular random and arbitrary visual angles. The goal is to identify whether a tumor is benign or malignant in nature, as
-malignant tumors are cancerous and should be treated as soon as possible to reduce and prevent further complications. In short, it
-is a binary classification problem and can be resolved by various machine learning methods.
+irregular random and arbitrary visual angles. The goal of this project is to identify whether a tumor is benign or malignant in nature, as
+malignant tumors are cancerous and should be treated as soon as possible to reduce and prevent further complications.
+<p  align="center">
+<img src="images/dataset_visualization.jpg" alt="about dataset"><br>
+<i>(Image source : Colab file)</i>
+</p>
+
 ## About the Dataset
 The [dataset](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB) contains 6 gzipped HDF5 files. The files contain histopathologic scans of lymph node sections in the form of multidimensional arrays of scientific or numerical data. The description of the dataset is as follows:
 |File Name|Content|Size|
