@@ -1,44 +1,74 @@
 # Histopathologic Cancer Detection
+## Introduction
+Cancer is a disease in which cells multiply uncontrollably and crowd out the normal cells. A biopsy is an invasive
+diagnosis which uses imaging tests to show if there is any change in the tissue that may be cancerous. In biopsies, pathologists
+provide the histopathologic assessment of the microscopic structure of the tissue and make final diagnosis by applying visual
+inspection of histopathological samples under the microscope and aim to differentiate between normal, and malignant cells.
+Manual detection is a tedious, tiring task and most likely to comprise human error, as most parts of the cell are frequently part of
+irregular random and arbitrary visual angles. The goal is to identify whether a tumor is benign or malignant in nature, as
+malignant tumors are cancerous and should be treated as soon as possible to reduce and prevent further complications. In short, it
+is a binary classification problem and can be resolved by various machine learning methods.
+## About the Dataset
+The [dataset](https://drive.google.com/drive/folders/1gHou49cA1s5vua2V5L98Lt8TiWA3FrKB) contains 6 gzipped HDF5 files. The files contain histopathologic scans of lymph node sections in the form of multidimensional arrays of scientific or numerical data. The description of the dataset is as follows:
+|File Name|Content|Size|
+|--|--|--|
+|[Camelyonpatch_level_2_split_train_x.h5.gz](https://drive.google.com/file/d/1Ka0XfEMiwgCYPdTI-vv6eUElOBnKFKQ2/view)|262144 images|6.1 GB|
+|[Camelyonpatch_level_2_split_train_y.h5.gz](https://drive.google.com/file/d/1269yhu3pZDP8UYFQs-NYs3FPwuK-nGSG/view)|262144 labels|21 KB|
+|[Camelyonpatch_level_2_split_valid_x.h5.gz](https://drive.google.com/file/d/1hgshYGWK8V-eGRy8LToWJJgDU_rXWVJ3/view)|32768 images|0.8 GB|
+|[Camelyonpatch_level_2_split_valid_y.h5.gz](https://drive.google.com/file/d/1bH8ZRbhSVAhScTS0p9-ZzGnX91cHT3uO/view)|32768 labels|3 KB|
+|[Camelyonpatch_level_2_split_test_x.h5.gz](https://drive.google.com/file/d/1qV65ZqZvWzuIVthK8eVDhIwrbnsJdbg_/view)|32768 images|0.8 GB|
+|[Camelyonpatch_level_2_split_test_y.h5.gz](https://drive.google.com/file/d/17BHrSrwWKjYsOgTMmoqrIjDy6Fa2o_gP/view)|32768 labels|3 KB|
+## Methodology
+### Dataset Preparation
+- The given dataset was in the form of gzipped HDF5 files. So, in order to perform dataset exploration we first unzipped the file,
+uploaded it on google drive, and then loaded the .h5 file into the ‘datasets.PCAM’ function of torchvision (version = 0.12)
+library and used the transform attribute to obtain the images in tensor format.
+- Next, in order to make the obtained dataset iterable, we passed it through the dataloader function.
+- The images obtained were of the dimensions 3x96x96.
+- We also converted the images in tensor format to a dataframe with features columns as the pixels and target columns as labels in
+order to use the sklearn library models like Random Forest Classifier, LightGBM etc.
+### Dataset Preprocessing
+- Most of the pixels in the image are redundant and do not contribute substantially. it is required to eliminate them to avoid
+unnecessary computational overhead. This can be achieved by compression techniques.
+- This is necessary to remove redundancy from the input data which only contributes to the computational complexity of the
+network without providing any significant improvements in the result.
+- The compression technique implemented by us is image resizing. We resized both the dimensions to half, thereby maintaining
+the aspect ratio but reduced the area to 1/4th.
+### Dimension Reduction Techniques
+- Principal Component Analysis (PCA) : It is one of the most commonly used unsupervised machine learning algorithms that
+increases interpretability but at the same time minimizes information loss. It is a statistical procedure that uses an orthogonal
+transformation and converts a set of correlated variables to a set of uncorrelated variables.
+- Linear Discriminant Analysis (LDA) : It is supervised dimensionality reduction technique which accounts for the intraclass and
+interclass variations as well to increase/maintain the separability of the classes after the dimensionality reduction. We tried to do
+the LDA but the colab file was crashing as the RAM was getting full.
+### Feature Reduction Techniques
+- Sequential Feature Selection (SFS) : Attempted but didn’t adopt it as it was taking too much time to run.
+Reason: The time complexity factor of SFS technique is O(n!). In our data, n = 6912. Hence the n factorial (n!) of such a big
+value increases the time complexity to a huge extent. The run time exceeded 7 hours, which made it not possible to attempt.
+## Evaluation of Models
+|Models implemented|Accuracy|Specificity|Precision|Recall|
+|--|--|--|--|--|
+|Transfer Learning|||||
+|Convolutional Neural Network|||||
+|Multi-layer Perceptron|||||
+|Random Forest Classifier(with PCA)|||||
+|LightGBM Classifier(with PCA)|||||
+|Support Vector Machine(with PCA)|||||
+## Result and Analysis
+We chose ‘specificity’ as the metric for evaluation as it denotes the chance of correctly classifying negative samples thereby maximizing the surety of positive samples not going undetected. While training the deep learning models (MLP, CNN and Transfer Learning model), the model with highest specificity is saved and it turns out to be the model with lowest validation loss. From the loss vs epoch curves for the Deep Learning frameworks(Linear and CNN), it can be observed that after a certain number of epochs the training loss is decreasing whereas the validation loss is increasing, this implies that the model started to overfit after a certain number of epochs.
 
-This is the course project of PRML 2022. The contributors are:
+From the attached ROC curve, we can see that the validation AUC is less than that of training AUC in the case of ‘Transfer Learning’ model. Hence, we can say that the Transfer learning model is not getting overfitted.
 
-i) Debdut Saini (B20CS011)
-ii) Vedant A. Sontake (B20EE095)
-iii) Suborno Biswas (B20EE069)
-
-<h3>WorkFlow:</h3>
-
-The dataset contains almost 2.6 lakhs of training images, so, it is quite difficult task to make a csv file out of it.
-So, we used PyTorch library's inbuilt `torch.utils.data.Dataset` and `torch.utils.data.dataloader` to make a dataset to train our neural networks. 
-
-Models we tried:
-
-i. MLP
-
-ii. 3- layered conv network along with fully connected layers (Ref: Cancer diagnosis in histopathological image: CNN based approach)
-
-What we will try:
-
-i. Transfer Learning Based deep neural network training
-
-Since 2.6 lakhs images are difficult to handle, we will choose around 26k images where class distribution will be almost 50%, to get a new dataset. We will preprocess that data, like reshaping the image and normalizing the pixels values for better convergence. Once we get the dataset, the data obtained will be reduced to lower dimension using PCA.The dimensionally reduced data will be computationally efficient, so we can apply various models to it.
-
-ii. SVM can be applied with 'rbf' kernel.
-
-iii. LDA can be applied for classification.
-
-iv. LightGBM and XGBoost/or other boosting algorithm can be applied.
-
-v. Random forest and different ensemble learning methods can be tried.
-
-vi. Decision Tree can be tried, but it is expected to give poor result when compared to Random Forest.
-
-<h2>How to run the App?</h2>
-
-1. To run the app, you need to download the weights from the given link https://drive.google.com/file/d/1YpfoeXjKVwuurWWN2aoelA5hrB_1N3-z/view?usp=sharing.
-
-2. Run the command `streamlit run app.py` in the terminal.
-
-
-
-
+From ROC curves and the evaluation table, it is quite evident that the Transfer Learning model is performing the best as the AUC/specificity is coming out to be maximum in that case. Since our evaluation criteria is specificity, we will go with the Transfer learning model, however it can be observed from the evaluation
+table above that the transfer learning model is outperformed over other models in terms of accuracy, precision and recall as well.
+## Contributors
+|Name|Branch|Institute|
+|--|--|--|
+|[Vedant A Sontake](https://github.com/Vedant-02)|EE|IIT Jodhpur|
+|[Debdut Saini](https://github.com/Debdut0122)|CS|IIT Jodhpur|
+|Suborno Biswas|EE|IIT Jodhpur|
+## References
+We referred to the following research papers and documentations:
+- [Cancer diagnosis in histopathological image: CNN based approach](https://www.sciencedirect.com/science/article/pii/S2352914819301133)
+- [Transfer learning based histopathologic image classification for breast cancer detection](https://link.springer.com/article/10.1007/s13755-018-0057-x)
+- [Pytorch](https://pytorch.org/docs/stable/nn.html)
