@@ -60,7 +60,10 @@ value increases the time complexity to a huge extent. The run time exceeded 7 ho
 ## Result and Analysis
 We chose ‘specificity’ as the metric for evaluation as it denotes the chance of correctly classifying negative samples thereby maximizing the surety of positive samples not going undetected. While training the deep learning models (MLP, CNN and Transfer Learning model), the model with highest specificity is saved and it turns out to be the model with lowest validation loss. From the loss vs epoch curves for the Deep Learning frameworks(Linear and CNN), it can be observed that after a certain number of epochs the training loss is decreasing whereas the validation loss is increasing, this implies that the model started to overfit after a certain number of epochs.
 
-From the attached ROC curve, we can see that the validation AUC is less than that of training AUC in the case of ‘Transfer Learning’ model. Hence, we can say that the Transfer learning model is not getting overfitted.
+<p  align="center">
+<img src="images/ROC_TL.jpg" alt="ROC_TL"><br>
+<i>(Image source : Colab file)</i>
+</p>From the attached ROC curve, we can see that the validation AUC is less than that of training AUC in the case of ‘Transfer Learning’ model. Hence, we can say that the Transfer learning model is not getting overfitted.
 
 From ROC curves and the evaluation table, it is quite evident that the Transfer Learning model is performing the best as the AUC/specificity is coming out to be maximum in that case. Since our evaluation criteria is specificity, we will go with the Transfer learning model, however it can be observed from the evaluation
 table above that the transfer learning model is outperformed over other models in terms of accuracy, precision and recall as well.
