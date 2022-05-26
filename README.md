@@ -48,12 +48,12 @@ value increases the time complexity to a huge extent. The run time exceeded 7 ho
 ## Evaluation of Models
 |Models implemented|Accuracy|Specificity|Precision|Recall|
 |--|--|--|--|--|
-|Transfer Learning|||||
-|Convolutional Neural Network|||||
-|Multi-layer Perceptron|||||
-|Random Forest Classifier(with PCA)|||||
-|LightGBM Classifier(with PCA)|||||
-|Support Vector Machine(with PCA)|||||
+|Transfer Learning|0.85757|0.90867|0.89819|0.80643|
+|Convolutional Neural Network|0.74716|0.92434|0.88271|0.56982|
+|Multi-layer Perceptron|0.680175|0.86956|0.78983|0.49063|
+|Random Forest Classifier(with PCA)|0.69393|0.84991|0.65|0.85|
+|LightGBM Classifier(with PCA)|0.7275|0.7578|0.71|0.76|
+|Support Vector Machine(with PCA)|0.5233|0.0469|1.00|0.05|
 ## Result and Analysis
 We chose ‘specificity’ as the metric for evaluation as it denotes the chance of correctly classifying negative samples thereby maximizing the surety of positive samples not going undetected. While training the deep learning models (MLP, CNN and Transfer Learning model), the model with highest specificity is saved and it turns out to be the model with lowest validation loss. From the loss vs epoch curves for the Deep Learning frameworks(Linear and CNN), it can be observed that after a certain number of epochs the training loss is decreasing whereas the validation loss is increasing, this implies that the model started to overfit after a certain number of epochs.
 
@@ -61,6 +61,12 @@ From the attached ROC curve, we can see that the validation AUC is less than tha
 
 From ROC curves and the evaluation table, it is quite evident that the Transfer Learning model is performing the best as the AUC/specificity is coming out to be maximum in that case. Since our evaluation criteria is specificity, we will go with the Transfer learning model, however it can be observed from the evaluation
 table above that the transfer learning model is outperformed over other models in terms of accuracy, precision and recall as well.
+## Launching the Project
+- One needs to save the weights of the model which performed the best. In our case, the weights of the best model are : [Weights](https://drive.google.com/file/d/1YpfoeXjKVwuurWWN2aoelA5hrB_1N3-z/view)
+- Run the following command in the terminal : 
+  ```
+  streamlit run app.py
+  ```
 ## Contributors
 |Name|Branch|Institute|
 |--|--|--|
@@ -72,3 +78,4 @@ We referred to the following research papers and documentations:
 - [Cancer diagnosis in histopathological image: CNN based approach](https://www.sciencedirect.com/science/article/pii/S2352914819301133)
 - [Transfer learning based histopathologic image classification for breast cancer detection](https://link.springer.com/article/10.1007/s13755-018-0057-x)
 - [Pytorch](https://pytorch.org/docs/stable/nn.html)
+- [Scikit learn](https://scikit-learn.org/stable/user_guide.html)
