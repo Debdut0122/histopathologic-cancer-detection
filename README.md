@@ -78,7 +78,7 @@ table above that the transfer learning model is outperformed over other models i
 |--|--|--|
 |[Vedant A Sontake](https://github.com/Vedant-02)|EE|IIT Jodhpur|
 |[Debdut Saini](https://github.com/Debdut0122)|CS|IIT Jodhpur|
-|Suborno Biswas|EE|IIT Jodhpur|
+|[Suborno Biswas](https://github.com/subornobiswas)|EE|IIT Jodhpur|
 ## References
 We referred to the following research papers and documentations:
 - [Cancer diagnosis in histopathological image: CNN based approach](https://www.sciencedirect.com/science/article/pii/S2352914819301133)
